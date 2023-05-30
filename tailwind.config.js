@@ -22,6 +22,22 @@ export default {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
+        complete: {
+          DEFAULT: 'hsl(var(--complete))',
+          foreground: 'hsl(var(--complete-foreground))',
+        },
+        picking: {
+          DEFAULT: 'hsl(var(--picking))',
+          foreground: 'hsl(var(--picking-foreground))',
+        },
+        processing: {
+          DEFAULT: 'hsl(var(--processing))',
+          foreground: 'hsl(var(--processing-foreground))',
+        },
+        issue: {
+          DEFAULT: 'hsl(var(--issue))',
+          foreground: 'hsl(var(--issue-foreground))',
+        },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',

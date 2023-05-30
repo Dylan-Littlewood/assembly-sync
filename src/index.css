@@ -31,6 +31,19 @@
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
 
+    --complete: 126 39% 59%;
+    --complete-foreground: 210 40% 98%;
+
+    --picking:184 59% 53%;
+    --picking-foreground: 210 40% 98%;
+
+    --processing: 43 55% 55%;
+    --processing-foreground: 210 40% 98%;
+
+    --issue: 0 39% 59%;
+    --issue-foreground: 210 40% 98%;
+
+
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
@@ -63,6 +76,18 @@
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
+
+    --complete:
+    --complete-foreground:
+
+    --picking:
+    --picking-foreground:
+
+    --processing:
+    --processing-foreground:
+
+    --issue: var(--destructive);
+    --issue-foreground: var(--destructive-foreground);
 
     --ring: 216 34% 17%;
 
