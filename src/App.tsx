@@ -1,20 +1,29 @@
-import { useState } from 'react';
-import './App.css';
+import { Payment, columns } from '@/components/payments/columns';
+import { DataTable } from './components/payments/data-table';
+
+const mockData: Payment[] = [
+  {
+    id: '728ed52f',
+    status: 'Complete',
+    workOrder: 'WO2382',
+    saleOrder: 35682,
+    customerName: 'The PC Factory',
+  },
+  {
+    id: '489e1d42',
+    status: 'Processing',
+    workOrder: 'WO2194',
+    saleOrder: 40521,
+    customerName: 'Bluebell Wood School',
+  },
+  // ...
+];
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>Testing the deployment</h1>
-      <div className='card'>
-        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-    </>
+    <div className='h-screen w-screen flex items-center justify-center'>
+      <DataTable columns={columns} data={mockData} />
+    </div>
   );
 }
 
