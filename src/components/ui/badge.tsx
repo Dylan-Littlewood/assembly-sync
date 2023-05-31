@@ -12,10 +12,10 @@ const badgeVariants = cva(
         secondary: 'bg-secondary hover:bg-secondary/80 border-transparent text-secondary-foreground',
         outline: 'text-foreground',
 
-        complete: 'bg-complete hover:bg-complete/80 border-transparent text-complete-foreground',
-        processing: 'bg-processing hover:bg-processing/80 border-transparent text-processing-foreground',
-        picking: 'bg-picking hover:bg-picking/80 border-transparent text-picking-foreground',
-        issue: 'bg-issue hover:bg-issue/80 border-transparent text-issue-foreground',
+        complete: 'bg-green-600 hover:bg-green-600/80 border-transparent  text-green-50',
+        processing: 'bg-yellow-600 hover:bg-yellow-600/80 border-transparent text-yellow-50',
+        picking: 'bg-cyan-600 hover:bg-cyan-600/80 border-transparent text-cyan-50',
+        issue: 'bg-red-600 hover:bg-red-600/80 border-transparent text-red-50',
       },
     },
     defaultVariants: {

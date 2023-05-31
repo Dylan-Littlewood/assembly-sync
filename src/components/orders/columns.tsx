@@ -3,63 +3,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { AlertCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
-import { VariantProps } from 'class-variance-authority';
+import { mockUsers } from '@/lib/data';
+import { Order, Quantity } from '@/lib/types';
+import { getInitials } from '@/lib/utils';
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
-type Quantity = {
-  total: number;
-  completed: number;
-};
-
-type User = {
-  id: string;
-  name: string;
-  img: string;
-};
-
-const mockUsers: User[] = [
-  {
-    id: 'testid1',
-    name: 'Dylan Littlewood',
-    img: 'https://github.com/Dylan-Littlewood.png',
-  },
-  {
-    id: 'testid2',
-    name: 'shadcn',
-    img: 'https://github.com/shadcn.png',
-  },
-  {
-    id: 'testid3',
-    name: 'Ben Wall',
-    img: '',
-  },
-];
-
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  status: 'Picking' | 'Processing' | 'Complete' | 'Issue';
-  workOrder: string;
-  saleOrder: number;
-  customerName: string;
-  product: string;
-  Quantity: Quantity;
-  assigned: string[];
-};
-var getInitials = function (name: string) {
-  var parts = name.split(' ');
-  var initials = '';
-  for (var i = 0; i < parts.length; i++) {
-    if (parts[i].length > 0 && parts[i] !== '') {
-      initials += parts[i][0];
-    }
-  }
-  return initials;
-};
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
