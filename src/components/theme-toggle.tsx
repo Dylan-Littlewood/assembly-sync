@@ -3,9 +3,17 @@ import { Moon, SunMedium } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
+  const systemTheme = localStorage.getItem('Theme');
+  let darkThemeEnabled = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (systemTheme) {
+    darkThemeEnabled = systemTheme === 'dark';
+  }
+
+  const [isDark, setIsDark] = useState(darkThemeEnabled);
   useEffect(() => {
     document.body.classList.toggle('dark', isDark);
+    localStorage.setItem('Theme', isDark ? 'dark' : 'light');
   }, [isDark]);
   return (
     <Button variant='ghost' size='sm' onClick={() => setIsDark(!isDark)}>

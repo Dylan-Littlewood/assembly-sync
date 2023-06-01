@@ -1,4 +1,6 @@
 import { Order, Employee } from './types';
+import DylanLittlewoodImgUrl from '@/assets/Dylan-Littlewood.png';
+import shadcnImgUrl from '@/assets/shadcn.png';
 
 export const mockData: Order[] = [
   {
@@ -60,13 +62,13 @@ export const mockUsers: Employee[] = [
   {
     id: 'testid1',
     name: 'Dylan Littlewood',
-    img: 'https://github.com/Dylan-Littlewood.png',
+    img: DylanLittlewoodImgUrl,
     role: 'Senior Production Technician',
   },
   {
     id: 'testid2',
     name: 'shadcn',
-    img: 'https://github.com/shadcn.png',
+    img: shadcnImgUrl,
     role: 'Temp Staff',
   },
   {

@@ -60,7 +60,7 @@ export const columns: ColumnDef<Order>[] = [
             const user = mockUsers.find(u => u.id === userID);
             if (user) {
               return (
-                <TooltipProvider>
+                <TooltipProvider key={userID}>
                   <Tooltip>
                     <TooltipTrigger>
                       <Avatar>
@@ -76,7 +76,7 @@ export const columns: ColumnDef<Order>[] = [
               );
             } else {
               return (
-                <TooltipProvider>
+                <TooltipProvider key={userID}>
                   <Tooltip>
                     <TooltipTrigger>
                       <Avatar>
