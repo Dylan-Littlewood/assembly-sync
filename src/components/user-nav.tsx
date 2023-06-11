@@ -1,7 +1,7 @@
-import { AlertCircle, CreditCard, LogOut, PlusCircle, Settings, User } from 'lucide-react';
+import { AlertCircle, CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,25 +11,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { FC } from 'react';
-import { mockUsers } from '@/lib/data';
-import { getInitials } from '@/lib/utils';
+} from "@/components/ui/dropdown-menu";
+import { FC } from "react";
+import { mockUsers } from "@/lib/data";
+import { getInitials } from "@/lib/utils";
+import { SignOut } from "@/App";
 
 interface EmployeeID {
-  employeeID: string;
+  employeeID: string | undefined;
 }
 
-function getEmployee(id: string) {
+function getEmployee(id: string | undefined) {
   const employee = mockUsers.find(u => u.id === id);
   if (employee) {
     return employee;
   } else {
     return {
       id: id,
-      name: 'User Not Found',
-      img: '',
-      role: 'Unknown',
+      name: "User Not Found",
+      img: "",
+      role: "Unknown",
     };
   }
 }
@@ -39,12 +40,12 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='relative h-10 w-10 rounded-full'>
-          <Avatar className='h-10 w-10'>
-            <AvatarImage src={employee.img} alt='@shadcn' />
-            {employee.name === 'User Not Found' ? (
-              <AvatarFallback className=' bg-red-200'>
-                <AlertCircle color='red' />
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src={employee.img} alt="@shadcn" />
+            {employee.name === "User Not Found" ? (
+              <AvatarFallback className=" bg-red-200">
+                <AlertCircle color="red" />
               </AvatarFallback>
             ) : (
               <AvatarFallback>{getInitials(employee.name)}</AvatarFallback>
@@ -52,38 +53,42 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56' align='end' forceMount>
-        <DropdownMenuLabel className='font-normal'>
-          <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>{employee.name}</p>
-            <p className='text-xs leading-none text-muted-foreground'>{employee.role}</p>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{employee.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{employee.role}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <User className='mr-2 h-4 w-4' />
+            <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <CreditCard className='mr-2 h-4 w-4' />
+            <CreditCard className="mr-2 h-4 w-4" />
             <span>Billing</span>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Settings className='mr-2 h-4 w-4' />
+            <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <PlusCircle className='mr-2 h-4 w-4' />
+            <PlusCircle className="mr-2 h-4 w-4" />
             <span>New Team</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut className='mr-2 h-4 w-4' />
+        <DropdownMenuItem
+          onSelect={() => {
+            SignOut();
+          }}
+        >
+          <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

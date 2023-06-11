@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable quote-props */
 module.exports = {
   root: true,
   env: {
@@ -20,13 +22,10 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
   ],
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
-    "quotes": ["error", "double"],
+    quotes: ["error", "double"],
     "import/no-unresolved": 0,
-    "indent": ["error", 2],
+    indent: ["error", 2],
   },
 };
