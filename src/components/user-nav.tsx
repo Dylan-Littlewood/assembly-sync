@@ -16,23 +16,10 @@ import { FC } from "react";
 import { mockUsers } from "@/lib/data";
 import { getInitials } from "@/lib/utils";
 import { SignOut } from "@/App";
+import { getEmployee } from "@/firebase/firestore";
 
 interface EmployeeID {
-  employeeID: string | undefined;
-}
-
-function getEmployee(id: string | undefined) {
-  const employee = mockUsers.find(u => u.id === id);
-  if (employee) {
-    return employee;
-  } else {
-    return {
-      id: id,
-      name: "User Not Found",
-      img: "",
-      role: "Unknown",
-    };
-  }
+  employeeID: string;
 }
 
 export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {

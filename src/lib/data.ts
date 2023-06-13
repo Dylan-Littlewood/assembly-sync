@@ -14,7 +14,7 @@ export const mockData: Order[] = [
       total: 50,
       completed: 50,
     },
-    assigned: ["testid2", "qyuQU8r8VwNszEHdd3cv711FGAH2"],
+    assigned: ["testid2", "mS5cUiGMFifJu7zcVDptqTN1ubN2"],
   },
   {
     id: "489e1d42",
@@ -27,7 +27,7 @@ export const mockData: Order[] = [
       total: 200,
       completed: 27,
     },
-    assigned: ["qyuQU8r8VwNszEHdd3cv711FGAH2", "testid3", "testid4"],
+    assigned: ["mS5cUiGMFifJu7zcVDptqTN1ubN2", "testid3", "testid4"],
   },
   {
     id: "48tshgs1d42",

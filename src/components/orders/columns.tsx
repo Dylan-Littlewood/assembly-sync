@@ -4,10 +4,15 @@ import { AlertCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
 import { mockUsers } from '@/lib/data';
-import { Order, Quantity } from '@/lib/types';
+import { Employee, Order, Quantity } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import { db } from '@/firebase/config';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { getEmployee } from '@/firebase/firestore';
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
+
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -54,19 +59,27 @@ export const columns: ColumnDef<Order>[] = [
     header: 'Assigned',
     minSize: 20000,
     cell: ({ getValue }) => {
+
       return (
         <div className='flex gap-2'>
           {getValue<string[]>().map(userID => {
-            const user = mockUsers.find(u => u.id === userID);
-            if (user) {
+            const user = getEmployee(userID);
               return (
                 <TooltipProvider key={userID}>
                   <Tooltip>
                     <TooltipTrigger>
-                      <Avatar>
-                        <AvatarImage src={user.img} />
-                        <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-                      </Avatar>
+                      {(user.name === 'User Not Found') ?
+                        <Avatar>
+                          <AvatarFallback className=' bg-red-200'>
+                            <AlertCircle color='red' />
+                          </AvatarFallback>
+                        </Avatar>
+                        :
+                        <Avatar>
+                          <AvatarImage src={user.img} />
+                          <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                        </Avatar>
+                      }
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{user.name}</p>
@@ -74,24 +87,6 @@ export const columns: ColumnDef<Order>[] = [
                   </Tooltip>
                 </TooltipProvider>
               );
-            } else {
-              return (
-                <TooltipProvider key={userID}>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Avatar>
-                        <AvatarFallback className=' bg-red-200'>
-                          <AlertCircle color='red' />
-                        </AvatarFallback>
-                      </Avatar>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>User Not Found</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              );
-            }
           })}
         </div>
       );

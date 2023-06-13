@@ -6,12 +6,11 @@ import { ThemeToggle } from "./components/theme-toggle";
 import { Button } from "./components/ui/button";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, signInWithGoogle } from "./firebase/firebase_config";
+import { auth, signInWithGoogle } from "./firebase/config";
 import { getEmployee } from "./firebase/firestore";
 
 function App() {
   const [user] = useAuthState(auth);
-  getEmployee();
   return (
     <div className="h-screen w-screen flex flex-col gap-12 items-center justify-center">
       <div className="flex justify-end w-full p-4 gap-4 absolute top-0 items-center">
