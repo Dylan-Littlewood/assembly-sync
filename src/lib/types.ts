@@ -11,12 +11,11 @@ export type Employee = {
 };
 
 export type Order = {
-  id: string;
-  status: 'Picking' | 'Processing' | 'Complete' | 'Issue';
   workOrder: string;
+  status: 'Picking' | 'Processing' | 'Complete' | 'Issue';
   saleOrder: number;
   customerName: string;
   product: string;
-  Quantity: Quantity;
+  quantity: Quantity;
   assigned: string[];
 };

@@ -3,13 +3,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { AlertCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
-import { mockUsers } from '@/lib/data';
-import { Employee, Order, Quantity } from '@/lib/types';
+import { Order, Quantity } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import { db } from '@/firebase/config';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { getEmployee } from '@/firebase/firestore';
+import { getEmployee, loadEmployees } from '@/firebase/firestore';
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
@@ -43,7 +39,7 @@ export const columns: ColumnDef<Order>[] = [
     header: 'Product',
   },
   {
-    accessorKey: 'Quantity',
+    accessorKey: 'quantity',
     header: 'Quantity',
     cell: ({ getValue }) => {
       const quantity = getValue<Quantity>();
@@ -59,11 +55,11 @@ export const columns: ColumnDef<Order>[] = [
     header: 'Assigned',
     minSize: 20000,
     cell: ({ getValue }) => {
-
+      const employees = loadEmployees();
       return (
         <div className='flex gap-2'>
           {getValue<string[]>().map(userID => {
-            const user = getEmployee(userID);
+            const user = getEmployee(employees, userID);
               return (
                 <TooltipProvider key={userID}>
                   <Tooltip>

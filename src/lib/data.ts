@@ -1,55 +1,49 @@
-import { Order, Employee } from "./types";
-import DylanLittlewoodImgUrl from "@/assets/Dylan-Littlewood.png";
-import shadcnImgUrl from "@/assets/shadcn.png";
+import { Order } from "./types";
 
 export const mockData: Order[] = [
   {
-    id: "728ed52f",
     status: "Complete",
     workOrder: "WO2382",
     saleOrder: 35682,
     customerName: "The PC Factory",
     product: "FLM",
-    Quantity: {
+    quantity: {
       total: 50,
       completed: 50,
     },
-    assigned: ["testid2", "mS5cUiGMFifJu7zcVDptqTN1ubN2"],
+    assigned: ["tdu21AGVZtGsyHUGfaKiL4bzCEaO", "EewaXC9kXW1z1wjFXtR7HLODhSdZ"],
   },
   {
-    id: "489e1d42",
     status: "Processing",
     workOrder: "WO2194",
     saleOrder: 40521,
     customerName: "Bluebell Wood School",
     product: "ASPS",
-    Quantity: {
+    quantity: {
       total: 200,
       completed: 27,
     },
-    assigned: ["mS5cUiGMFifJu7zcVDptqTN1ubN2", "testid3", "testid4"],
+    assigned: ["EewaXC9kXW1z1wjFXtR7HLODhSdZ", "testid3", "tdu21AGVZtGsyHUGfaKiL4bzCEaO"],
   },
   {
-    id: "48tshgs1d42",
     status: "Picking",
     workOrder: "WO3168",
     saleOrder: 40762,
     customerName: "Creative Hut",
     product: "ARENA",
-    Quantity: {
+    quantity: {
       total: 2,
       completed: 0,
     },
     assigned: [],
   },
   {
-    id: "489etgsdrg",
     status: "Issue",
     workOrder: "WO3169",
     saleOrder: 40762,
     customerName: "Creative Hut",
     product: "ARENA",
-    Quantity: {
+    quantity: {
       total: 1,
       completed: 0,
     },
@@ -58,23 +52,3 @@ export const mockData: Order[] = [
   // ...
 ];
 
-export const mockUsers: Employee[] = [
-  {
-    id: "mS5cUiGMFifJu7zcVDptqTN1ubN2",
-    name: "Dylan Littlewood",
-    img: DylanLittlewoodImgUrl,
-    role: "Senior Production Technician",
-  },
-  {
-    id: "testid2",
-    name: "shadcn",
-    img: shadcnImgUrl,
-    role: "Temp Staff",
-  },
-  {
-    id: "testid3",
-    name: "Ben Wall",
-    img: "",
-    role: "Senior Production Technician",
-  },
-];

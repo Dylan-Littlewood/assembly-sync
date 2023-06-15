@@ -13,17 +13,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { FC } from "react";
-import { mockUsers } from "@/lib/data";
 import { getInitials } from "@/lib/utils";
 import { SignOut } from "@/App";
-import { getEmployee } from "@/firebase/firestore";
+import { addOrder, getEmployee, loadEmployees } from "@/firebase/firestore";
 
 interface EmployeeID {
   employeeID: string;
 }
 
 export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
-  const employee = getEmployee(employeeID);
+  const employee = getEmployee(loadEmployees(), employeeID);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -64,9 +63,11 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => {
+            addOrder('WO6969','is it working');
+          }}>
             <PlusCircle className="mr-2 h-4 w-4" />
-            <span>New Team</span>
+            <span>New Order</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
