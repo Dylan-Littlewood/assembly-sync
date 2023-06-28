@@ -15,7 +15,8 @@ import {
 import { FC } from "react";
 import { getInitials } from "@/lib/utils";
 import { SignOut } from "@/App";
-import { addOrder, getEmployee, loadEmployees } from "@/firebase/firestore";
+import { getEmployee, loadEmployees } from "@/firebase/firestore";
+import { NewOrderDialog } from "./new-order-dialog";
 
 interface EmployeeID {
   employeeID: string;
@@ -63,12 +64,7 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => {
-            addOrder('WO6969','is it working');
-          }}>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            <span>New Order</span>
-          </DropdownMenuItem>
+            <NewOrderDialog/>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
