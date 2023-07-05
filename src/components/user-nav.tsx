@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FC } from "react";
 import { getInitials } from "@/lib/utils";
-import { SignOut } from "@/App";
+import { auth } from "@/firebase/config";
 import { getEmployee, loadEmployees } from "@/firebase/firestore";
 import { NewOrderDialog } from "./new-order-dialog";
 
@@ -69,7 +69,7 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onSelect={() => {
-            SignOut();
+            auth.signOut();
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />
