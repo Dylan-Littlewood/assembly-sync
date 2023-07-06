@@ -1,14 +1,12 @@
-import { columns } from "@/components/orders/columns";
-import { DataTable } from "./components/orders/data-table";
-
-import { loadOrders } from "./firebase/firestore";
+import { Outlet } from "react-router-dom";
+import Navigation from "./components/navigation";
 
 
 function App() {
-  const orders = loadOrders();
   return (
     <div className="h-screen w-screen flex flex-col gap-12 items-center justify-center">
-      <DataTable columns={columns} data={orders} />
+      <Navigation />
+      <Outlet />
     </div>
   );
 }
