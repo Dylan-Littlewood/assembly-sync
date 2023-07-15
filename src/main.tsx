@@ -7,25 +7,9 @@ import { ThemeProvider } from "./lib/Theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
+import { routes } from "./routes";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "/Dashboard",
-        index: true,
-        element: <Dashboard />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

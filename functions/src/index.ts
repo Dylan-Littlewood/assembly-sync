@@ -6,8 +6,14 @@ import admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.newUserSignup = functions.auth.user().onCreate(user => {
+
+  let userName = ""
+  if (user.displayName) {
+    userName = user.displayName;
+  }
+
   return admin.firestore().collection('Users').doc(user.uid).set({
-    name: user.displayName,
+    name: userName,
     img: user.photoURL,
     role: '',
   });
