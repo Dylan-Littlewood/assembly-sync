@@ -13,10 +13,10 @@ export default function Navigation() {
   return (
     <div className="flex justify-between w-full p-4 gap-4 absolute top-0 items-center">
       <Link to={'/'}><div className="flex gap-4 justify-center items-center"><Logo/><h1 className="text-lg">Assembly Sync</h1></div></Link>
-      {user?.displayName && <div className="flex gap-4 justify-center items-center">
+      <div className="flex gap-4 justify-center items-center">
         <Link to={'/Dashboard'}><Button variant={'outline'}>Dashboard</Button></Link>
         <Link to={'/Schedule'}><Button variant={'outline'}>Schedule</Button></Link>
-      </div>}
+      </div>
       <div className="flex gap-4 justify-center items-center">
         {user?.displayName &&
             <>

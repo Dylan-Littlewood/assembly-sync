@@ -7,10 +7,12 @@ import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import { SignUp } from "@/pages/signup";
 import { Login } from "@/pages/login";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
-const currentUser = false;
 
-const RequireAuth = ({ children }:{ children:JSX.Element }) => {
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+  const { currentUser } = useContext(AuthContext);
   return currentUser ? children : <Navigate to="/Login" />;
 };
 

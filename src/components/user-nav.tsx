@@ -12,11 +12,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { getInitials } from "@/lib/utils";
 import { auth } from "@/firebase/config";
 import { getEmployee, loadEmployees } from "@/firebase/firestore";
 import { NewOrderDialog } from "./new-order-dialog";
+import { AuthContext } from "@/context/AuthContext";
 
 interface EmployeeID {
   employeeID: string;
@@ -24,6 +25,8 @@ interface EmployeeID {
 
 export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
   const employee = getEmployee(loadEmployees(), employeeID);
+
+  const {dispatch} = useContext(AuthContext)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -69,7 +72,9 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onSelect={() => {
-            auth.signOut();
+            auth.signOut().then(() => {
+              if (dispatch) { dispatch({ type: "LOGOUT", payload: null }) }
+            });
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />
