@@ -1,5 +1,5 @@
 export type Quantity = {
-  total: number;
+  total: number | '';
   completed: number;
 };
 
@@ -12,10 +12,23 @@ export type Employee = {
 
 export type Order = {
   workOrder: string;
-  status: 'Picking' | 'Processing' | 'Complete' | 'Issue';
-  saleOrder: number;
+  status: 'New' | 'Picking' | 'Processing' | 'Complete' | 'Issue';
+  saleOrder: number | '';
   customerName: string;
   product: string;
   quantity: Quantity;
   assigned: string[];
 };
+
+export const BlankOrder: Order = {
+  workOrder: "",
+  status: "New",
+  saleOrder: "",
+  customerName: "",
+  product: "",
+  quantity: {
+    total: "",
+    completed: 0,
+  },
+  assigned: [],
+}

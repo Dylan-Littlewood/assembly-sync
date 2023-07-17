@@ -1,4 +1,4 @@
-import { collection, onSnapshot, setDoc, doc } from "@firebase/firestore";
+import { collection, onSnapshot } from "@firebase/firestore";
 
 
 import { db } from "./config";
@@ -40,7 +40,7 @@ export function loadOrders() {
       const getOrders = async () => {
         const ordersRef = collection(db, "Orders");
         const unsubscribe = await onSnapshot(ordersRef, (snapshot) => {
-          setOrders(snapshot.docs.map((order)=>({...order.data(), workOrder:order.id} as Order)))
+          setOrders(snapshot.docs.map((order)=>({...order.data()} as Order)))
         })
         return unsubscribe;
   }
@@ -50,18 +50,5 @@ export function loadOrders() {
   return orders;
 }
 
-export async function addOrder(wo: string, name: string)  {
-  await setDoc(doc(db, "Orders", wo), {
-      status: "Issue",
-      saleOrder: 40762,
-      customerName: name,
-      product: "ARENA",
-      quantity: {
-        total: 1,
-        completed: 0,
-      },
-      assigned: [],
-    });
-}
 
 // ,

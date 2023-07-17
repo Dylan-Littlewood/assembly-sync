@@ -9,6 +9,7 @@ import { SignUp } from "@/pages/signup";
 import { Login } from "@/pages/login";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import Schedule from "./pages/schedule";
 
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
@@ -28,6 +29,10 @@ export const routes =
         <Route
           path="/Dashboard"
           element={<RequireAuth><Dashboard /></RequireAuth>}
+        />
+        <Route
+          path="/Schedule"
+          element={<RequireAuth><Schedule /></RequireAuth>}
         />
       </Route>
     </Route>

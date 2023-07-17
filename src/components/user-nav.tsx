@@ -16,7 +16,6 @@ import { FC, useContext } from "react";
 import { getInitials } from "@/lib/utils";
 import { auth } from "@/firebase/config";
 import { getEmployee, loadEmployees } from "@/firebase/firestore";
-import { NewOrderDialog } from "./new-order-dialog";
 import { AuthContext } from "@/context/AuthContext";
 
 interface EmployeeID {
@@ -67,7 +66,6 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-            <NewOrderDialog/>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem

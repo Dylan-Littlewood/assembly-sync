@@ -10,14 +10,66 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { addOrder } from "@/firebase/firestore"
+import { Order, BlankOrder } from "@/lib/types"
+import { isNumber } from "@/lib/utils"
 import { PlusCircle } from "lucide-react"
 import { useState } from "react"
+import { setDoc, doc } from "@firebase/firestore";
+import { db } from "@/firebase/config"
+
+
+const ErrorLabel = ({children, id, errorInfo}:{children:string,id:string, errorInfo:string[]}) => {
+
+  return (
+    <>
+      {errorInfo.includes(id) && <p className="text-red-500 text-right pr-6">
+        <i>{children}</i>
+      </p>}
+    </>
+  )
+}
 
 export function NewOrderDialog() {
-  const [wo, setWO] = useState("");
-  const [name, setName] = useState("");
+  const [newOrder, setNewOrder] = useState<Order>(BlankOrder);
   const [open, setOpen] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [errorInfo, setErrorInfo] = useState<string[]>([]);
+
+  const validateOrder = () => {
+    let successful = true;
+    setErrorInfo([]);
+    if (newOrder.workOrder === '') {
+      setErrorInfo(errorInfo => [...errorInfo, 'workOrder']);
+      successful = false;
+    }
+    setHasError(successful)
+    return successful;
+  }
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    const value = e.target.value;
+
+    if (id === 'quantity') {
+      isNumber(value) && setNewOrder({ ...newOrder, quantity: { total: Number(value), completed: 0 } });
+      value === '' && setNewOrder({ ...newOrder, quantity: { total: "", completed: 0 } });
+    } else if(id === 'saleOrder') {
+      isNumber(value) && setNewOrder({ ...newOrder, [id]: Number(value) });
+      value === '' && setNewOrder({ ...newOrder, [id]: value });
+    } else {
+      setNewOrder({ ...newOrder, [id]: value });
+    }
+  }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateOrder()) {
+      try {
+        await setDoc(doc(db, "Orders", newOrder.workOrder), newOrder).then(()=> setOpen(false));
+      } catch (error) {
+        setHasError(true);
+        console.log(error);
+      }
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -28,11 +80,7 @@ export function NewOrderDialog() {
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
-        <form onSubmit={(event) => {
-          addOrder(wo, name);
-          setOpen(false);
-          event.preventDefault();
-        }}>
+        <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>New Order</DialogTitle>
             <DialogDescription>
@@ -41,19 +89,43 @@ export function NewOrderDialog() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="wo" className="text-right">
+              <Label htmlFor="workOrder" className="text-right">
                 Work Order
               </Label>
-              <Input id="wo" className="col-span-3" value={wo}
-            onChange={(e) => setWO(e.target.value)}/>
+              <Input id="workOrder" className="col-span-3" value={newOrder.workOrder}
+            onChange={handleInput}/>
+            </div>
+            <ErrorLabel id={'workOrder'} errorInfo={errorInfo} >Work order can not be blank</ErrorLabel>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="saleOrder" className="text-right">
+                Sale Order
+              </Label>
+              <Input id="saleOrder" className="col-span-3" value={newOrder.saleOrder}
+            onChange={handleInput}/>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
+              <Label htmlFor="customerName" className="text-right">
                 Customer Name
               </Label>
-              <Input id="name" className="col-span-3" value={name}
-                onChange={(e) => setName(e.target.value)}/>
+              <Input id="customerName" className="col-span-3" value={newOrder.customerName}
+                onChange={handleInput}/>
             </div>
+            {/* TODO: convert to dropdown */}
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="product" className="text-right">
+                Product
+              </Label>
+              <Input id="product" className="col-span-3" value={newOrder.product}
+                onChange={handleInput}/>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="quantity.total" className="text-right">
+                Quantity
+              </Label>
+              <Input id="quantity" className="col-span-3" value={newOrder.quantity.total}
+                onChange={handleInput} />
+            </div>
+
           </div>
           <DialogFooter>
             <Button type="submit">Submit Order</Button>

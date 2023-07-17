@@ -14,3 +14,8 @@ export function getInitials(name: string) {
   }
   return initials;
 }
+
+export function isNumber(input: string) {
+  const val = Number(input);
+  return Number.isInteger(val);
+}
