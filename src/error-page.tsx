@@ -1,6 +1,7 @@
 import { Link, useRouteError } from "react-router-dom";
 import { Button } from "./components/ui/button";
 import { FC } from "react";
+import { ErrorType } from "./lib/types";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -38,6 +39,20 @@ export const ErrorElement = ({error}:{error:any}) => {
       )}
     </p>
   );
+}
+
+
+export const ErrorLabel = ({id, errorInfo}:{id:string, errorInfo:ErrorType[]}) => {
+
+  const error = errorInfo.find((error) => { return error.id === id })
+
+  return (
+    <>
+      {error && <p className="text-red-500 text-right pr-6">
+        <i>{error.message}</i>
+      </p>}
+    </>
+  )
 }
 
 function isRouterError(error: any): error is { statusText: string, message: string } {

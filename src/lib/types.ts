@@ -32,3 +32,8 @@ export const BlankOrder: Order = {
   },
   assigned: [],
 }
+
+export type ErrorType = {
+  id?: string;
+  message?: string;
+}
