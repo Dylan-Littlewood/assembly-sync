@@ -32,17 +32,40 @@ const ErrorLabel = ({children, id, errorInfo}:{children:string,id:string, errorI
 export function NewOrderDialog() {
   const [newOrder, setNewOrder] = useState<Order>(BlankOrder);
   const [open, setOpen] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const [errorInfo, setErrorInfo] = useState<string[]>([]);
+
+
+  const isWOValid = () => {
+    if (newOrder.workOrder === '') return false;
+    if (!newOrder.workOrder.startsWith("WO")) return false;
+    const woNumber = newOrder.workOrder.substring(2);
+    if (isNumber(woNumber)) return false;
+    return true;
+  }
 
   const validateOrder = () => {
     let successful = true;
     setErrorInfo([]);
-    if (newOrder.workOrder === '') {
+    if (!isWOValid()) {
       setErrorInfo(errorInfo => [...errorInfo, 'workOrder']);
       successful = false;
     }
-    setHasError(successful)
+    if (newOrder.customerName === '') {
+      setErrorInfo(errorInfo => [...errorInfo, 'customerName']);
+      successful = false;
+    }
+    if (newOrder.product === '') {
+      setErrorInfo(errorInfo => [...errorInfo, 'product']);
+      successful = false;
+    }
+    if (newOrder.quantity.total === '') {
+      setErrorInfo(errorInfo => [...errorInfo, 'quantity']);
+      successful = false;
+    }
+    if (newOrder.saleOrder === '') {
+      setErrorInfo(errorInfo => [...errorInfo, 'saleOrder']);
+      successful = false;
+    }
     return successful;
   }
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +88,6 @@ export function NewOrderDialog() {
       try {
         await setDoc(doc(db, "Orders", newOrder.workOrder), newOrder).then(()=> setOpen(false));
       } catch (error) {
-        setHasError(true);
         console.log(error);
       }
     }
@@ -103,6 +125,7 @@ export function NewOrderDialog() {
               <Input id="saleOrder" className="col-span-3" value={newOrder.saleOrder}
             onChange={handleInput}/>
             </div>
+            <ErrorLabel id={'saleOrder'} errorInfo={errorInfo} >Sale order can not be blank</ErrorLabel>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="customerName" className="text-right">
                 Customer Name
@@ -110,6 +133,7 @@ export function NewOrderDialog() {
               <Input id="customerName" className="col-span-3" value={newOrder.customerName}
                 onChange={handleInput}/>
             </div>
+            <ErrorLabel id={'customerName'} errorInfo={errorInfo} >Customer name can not be blank</ErrorLabel>
             {/* TODO: convert to dropdown */}
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="product" className="text-right">
@@ -118,6 +142,7 @@ export function NewOrderDialog() {
               <Input id="product" className="col-span-3" value={newOrder.product}
                 onChange={handleInput}/>
             </div>
+            <ErrorLabel id={'product'} errorInfo={errorInfo} >Product can not be blank</ErrorLabel>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="quantity.total" className="text-right">
                 Quantity
@@ -125,6 +150,7 @@ export function NewOrderDialog() {
               <Input id="quantity" className="col-span-3" value={newOrder.quantity.total}
                 onChange={handleInput} />
             </div>
+            <ErrorLabel id={'quantity'} errorInfo={errorInfo} >Quantity can not be blank</ErrorLabel>
 
           </div>
           <DialogFooter>

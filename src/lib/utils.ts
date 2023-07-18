@@ -16,6 +16,7 @@ export function getInitials(name: string) {
 }
 
 export function isNumber(input: string) {
+  if (input === '') return false;
   const val = Number(input);
   return Number.isInteger(val);
 }
