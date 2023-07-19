@@ -24,39 +24,39 @@ const products = [
     label: "Flex Mini",
   },
   {
-    value: "ASPMI",
+    value: "ASPMI-H610M-E",
     label: "Aspect Mini",
   },
   {
-    value: "flaio",
+    value: "FLAIO",
     label: "FLAIO",
   },
   {
-    value: "aspaio",
+    value: "ASPAIO",
     label: "ASPAIO",
   },
 ]
 
-export function ComboboxDemo() {
+export function ComboboxDemo({value,onChange, className}:{value:string, onChange: (id:string, value:string) => void, className: string}) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          id='product'
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className={cn("col-span-3 justify-between",className)}
         >
           {value
-            ? products.find((product) => product.value === value)?.label
+            ? products.find((product) => product.value.toLowerCase() === value)?.label
             : "Select Product..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="p-0">
         <Command>
           <CommandInput placeholder="Search Product..." />
           <CommandEmpty>No product found.</CommandEmpty>
@@ -65,9 +65,10 @@ export function ComboboxDemo() {
               <CommandItem
                 key={product.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue)
+                  onChange("product", currentValue === value ? "" : currentValue)
                   setOpen(false)
                 }}
+                value={product.value}
               >
                 <Check
                   className={cn(
@@ -75,7 +76,7 @@ export function ComboboxDemo() {
                     value === product.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {`${product.label} (${product.value})`}
+                {product.label}
               </CommandItem>
             ))}
           </CommandGroup>

@@ -6,7 +6,6 @@ import { loadOrders } from "@/firebase/firestore";
 export default function Dashboard() {
   const orders = loadOrders();
   return (
-
     <DataTable columns={columns} data={orders} />
   )
 }

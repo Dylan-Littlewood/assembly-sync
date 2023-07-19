@@ -1,12 +1,17 @@
 import { Outlet } from "react-router-dom";
-import Navigation from "./components/navigation";
-
+import Navigation from "./components/navigation/navigation";
+import Sidebar from "./components/navigation/sidebar";
 
 function App() {
   return (
-    <div className="h-screen w-screen flex flex-col gap-12 items-center justify-center">
+    <div className="h-screen w-screen flex flex-col items-center justify-center">
       <Navigation />
-      <Outlet />
+      <div className="flex justify-between w-full h-full">
+        <Sidebar />
+        <div className="bg-secondary w-full flex flex-col items-center justify-center rounded-tl-3xl">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }

@@ -70,9 +70,7 @@ export function NewOrderDialog() {
     }
     return successful;
   }
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = e.target.id;
-    const value = e.target.value;
+  const handleInput = (id:string, value:string) => {
 
     setErrorInfo(errorInfo.filter(error => error.id !== id));
 
@@ -97,7 +95,6 @@ export function NewOrderDialog() {
     }
   }
 
-
   const dialogOnOpen = (shouldOpen: boolean) => {
     setErrorInfo([{}]);
     setOpen(shouldOpen);
@@ -115,7 +112,7 @@ export function NewOrderDialog() {
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>New Order</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="pb-4">
               Add a new order to the schedule.
             </DialogDescription>
           </DialogHeader>
