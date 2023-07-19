@@ -17,7 +17,8 @@ import { useState } from "react"
 import { setDoc, doc } from "@firebase/firestore";
 import { db } from "@/firebase/config"
 import { ErrorLabel } from "@/error-page"
-import InputField from "./ui/field"
+import InputField from "./ui/inputField"
+import { ComboboxDemo } from "./ui/combobox"
 
 
 export function NewOrderDialog() {
@@ -128,11 +129,11 @@ export function NewOrderDialog() {
             <InputField id="customerName" onChange={handleInput} value={newOrder.customerName} errorInfo={errorInfo}>
               Customer Name
             </InputField>
-            <InputField id="product" onChange={handleInput} value={newOrder.product} errorInfo={errorInfo}>
-              Product
-            </InputField>
             <InputField id="quantity" onChange={handleInput} value={newOrder.quantity.total} errorInfo={errorInfo}>
               Quantity
+            </InputField>
+            <InputField id="product" onChange={handleInput} value={newOrder.product} errorInfo={errorInfo}>
+              Product
             </InputField>
           </div>
           <DialogFooter>

@@ -2,6 +2,7 @@ import { ErrorLabel } from "@/error-page";
 import { Input } from "./input";
 import { Label } from "./label";
 import { ErrorType } from "@/lib/types";
+import { ComboboxDemo } from "./combobox";
 
 export default function InputField({ children, id, onChange, value, errorInfo }: { children: string, id: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, value: string | number, errorInfo: ErrorType[] }) {
   const error = errorInfo.find((error) => { return error.id === id })
@@ -12,7 +13,7 @@ export default function InputField({ children, id, onChange, value, errorInfo }:
         <Label htmlFor={id} className="text-right">
           {children}
         </Label>
-        <Input id={id} className={errorClass} value={value} onChange={onChange}/>
+        {id === 'product' ? <ComboboxDemo/> : <Input id={id} className={errorClass} value={value} onChange={onChange}/>}
       </div>
       <ErrorLabel id={id} errorInfo={errorInfo} />
     </>
