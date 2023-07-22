@@ -29,6 +29,17 @@ export type Order = {
   assigned: string[];
 };
 
+export type OrderUpdate = {
+  workOrder?: string;
+  status?: 'New' | 'Picking' | 'Processing' | 'Complete' | 'Issue';
+  saleOrder?: number | '';
+  customerName?: string;
+  product?: string;
+  quantity?: Quantity;
+  dates?: Dates;
+  assigned?: string[];
+};
+
 export const BlankOrder: Order = {
   workOrder: "",
   status: "New",

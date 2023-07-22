@@ -65,7 +65,6 @@ export function NewOrderDialog() {
       setErrorInfo(errorInfo => [...errorInfo, {id:'saleOrder',message:'Sale order can not be blank'}]);
       successful = false;
     }
-
     const todaysDate = Timestamp.now();
 
     setNewOrder({ ...newOrder, dates: { scheduled: true, build: todaysDate } });

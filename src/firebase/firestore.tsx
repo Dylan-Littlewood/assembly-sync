@@ -1,9 +1,9 @@
-import { collection, onSnapshot } from "@firebase/firestore";
+import { collection, onSnapshot, updateDoc, doc } from "@firebase/firestore";
 
 
 import { db } from "./config";
 import { useEffect, useState } from "react";
-import { Employee, Order } from "@/lib/types";
+import { Employee, Order, OrderUpdate } from "@/lib/types";
 
 export function loadEmployees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -50,5 +50,6 @@ export function loadOrders() {
   return orders;
 }
 
-
-// ,
+export function updateOrder(id: string, data: OrderUpdate) {
+  updateDoc(doc(db, 'Orders', id), data);
+}
