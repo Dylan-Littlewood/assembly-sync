@@ -8,17 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Timestamp } from "@firebase/firestore"
 import { Order, BlankOrder, ErrorType } from "@/lib/types"
 import { isNumber } from "@/lib/utils"
 import { PlusCircle } from "lucide-react"
 import { useState } from "react"
 import { setDoc, doc } from "@firebase/firestore";
 import { db } from "@/firebase/config"
-import { ErrorLabel } from "@/error-page"
 import InputField from "./ui/inputField"
-import { ComboboxDemo } from "./ui/combobox"
 
 
 export function NewOrderDialog() {
@@ -68,6 +65,10 @@ export function NewOrderDialog() {
       setErrorInfo(errorInfo => [...errorInfo, {id:'saleOrder',message:'Sale order can not be blank'}]);
       successful = false;
     }
+
+    const todaysDate = Timestamp.now();
+
+    setNewOrder({ ...newOrder, dates: { scheduled: true, build: todaysDate } });
     return successful;
   }
   const handleInput = (id:string, value:string) => {
@@ -87,6 +88,7 @@ export function NewOrderDialog() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOrder()) {
+      console.log(newOrder);
       try {
         await setDoc(doc(db, "Orders", newOrder.workOrder), newOrder).then(()=> dialogOnOpen(false));
       } catch (error) {

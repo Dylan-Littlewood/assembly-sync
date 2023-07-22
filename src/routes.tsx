@@ -3,13 +3,14 @@ import { createRoutesFromElements, Navigate, Route } from "react-router-dom";
 import App from "@/App";
 import ErrorPage from "@/error-page";
 
-import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
-import { SignUp } from "@/pages/signup";
-import { Login } from "@/pages/login";
+import SignUp from "@/pages/signup";
+import Login from "@/pages/login";
+import Build from "./pages/build";
+import Schedule from "./pages/schedule";
+
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Schedule from "./pages/schedule";
 
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
@@ -25,10 +26,10 @@ export const routes =
       errorElement={<ErrorPage />}
     >
       <Route errorElement={<ErrorPage />}>
-        <Route index element={<RequireAuth><Home /></RequireAuth>} />
+        <Route index element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route
-          path="/Dashboard"
-          element={<RequireAuth><Dashboard /></RequireAuth>}
+          path="/Build"
+          element={<RequireAuth><Build /></RequireAuth>}
         />
         <Route
           path="/Schedule"
