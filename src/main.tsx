@@ -6,7 +6,6 @@ import ErrorPage from "./error-page";
 import { ThemeProvider } from "./lib/Theme";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
-import Home from "./pages/home";
 import { routes } from "./routes";
 import { AuthContextProvider } from "./context/AuthContext";
 
