@@ -30,18 +30,6 @@
 
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
-    /*
-    --complete: 126 39% 59%;
-    --complete-foreground: 210 40% 98%;
-
-    --picking: 184 59% 53%;
-    --picking-foreground: 210 40% 98%;
-
-    --processing: 43 55% 55%;
-    --processing-foreground: 210 40% 98%;
-
-    --issue: 0 39% 59%;
-    --issue-foreground: 210 40% 98%; */
 
     --ring: 215 20.2% 65.1%;
 
@@ -58,8 +46,8 @@
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
 
     --border: 216 34% 17%;
     --input: 216 34% 17%;
@@ -106,7 +94,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: hsl(var(--accent));
+    background: hsl(var(--ring));
     border-radius: 5px;
 }
 

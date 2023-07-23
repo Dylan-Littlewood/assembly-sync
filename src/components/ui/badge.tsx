@@ -12,6 +12,7 @@ const badgeVariants = cva(
         secondary: 'bg-secondary hover:bg-secondary/80 border-transparent text-secondary-foreground',
         outline: 'text-foreground',
 
+        new:'bg-primary hover:bg-primary/80 border-transparent text-primary-foreground',
         complete: 'bg-green-600 hover:bg-green-600/80 border-transparent  text-green-50',
         processing: 'bg-yellow-600 hover:bg-yellow-600/80 border-transparent text-yellow-50',
         picking: 'bg-cyan-600 hover:bg-cyan-600/80 border-transparent text-cyan-50',

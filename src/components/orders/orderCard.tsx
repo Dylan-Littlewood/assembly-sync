@@ -10,14 +10,17 @@ import {
 import { Badge } from "../ui/badge"
 import { Order } from "@/lib/types"
 
-export function OrderCard({order}:{order:Order}) {
+type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
+
+export function OrderCard({ order }: { order: Order }) {
+  const status = order.status.toLowerCase() as variant;
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Customer Name</CardTitle>
-        <CardDescription>Aspect Micro</CardDescription>
+        <CardTitle>{order.customerName}</CardTitle>
+        <CardDescription>{order.product}</CardDescription>
         <div>
-          <Badge>New</Badge>
+          <Badge variant={status}>{order.status}</Badge>
         </div>
       </CardHeader>
       <CardContent>
@@ -27,7 +30,7 @@ export function OrderCard({order}:{order:Order}) {
               Work Order
             </p>
             <p className="text-sm text-muted-foreground">
-              WO2451
+              {order.workOrder}
             </p>
           </div>
           <div className="space-y-1">
@@ -35,7 +38,7 @@ export function OrderCard({order}:{order:Order}) {
               Sale Order
             </p>
             <p className="text-sm text-muted-foreground">
-              34585
+              {order.saleOrder}
             </p>
           </div>
           <div className="space-y-1">
@@ -43,7 +46,7 @@ export function OrderCard({order}:{order:Order}) {
               Quantity
             </p>
             <p className="text-sm text-muted-foreground">
-              45
+              {order.quantity.total}
             </p>
           </div>
         </div>
