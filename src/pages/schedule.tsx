@@ -14,14 +14,16 @@ const ScheduleNav = () => {
 
 export default function Schedule() {
   const allOrders = loadOrders();
-  const orders = allOrders.filter(order =>  order.status === 'New')
+  const unscheduledOrders = allOrders.filter(order => order.dates.scheduled === false)
   return (
     <div className="w-full h-full flex justify-between">
-      <OrderList />
-      <div className='flex flex-col gap-8'>
+      <OrderList data={unscheduledOrders} />
+      <div className='flex flex-col w-full gap-8'>
         <ScheduleNav />
-        <DataTable columns={columns} data={orders} />
-      CardWithForm</div>
+        <div className='flex w-full h-full items-center justify-center'>
+          <DataTable columns={columns} data={allOrders} />
+        </div>
+      </div>
     </div>
   )
 }

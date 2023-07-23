@@ -7,16 +7,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Badge } from "../ui/badge"
+import { Order } from "@/lib/types"
 
-export function OrderCard() {
+export function OrderCard({order}:{order:Order}) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Customer Name</CardTitle>
         <CardDescription>Aspect Micro</CardDescription>
+        <div>
+          <Badge>New</Badge>
+        </div>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-between">
+        <div className="flex justify-between text-center">
           <div className="space-y-1">
             <p className="text-sm font-medium leading-none">
               Work Order
@@ -45,8 +50,8 @@ export function OrderCard() {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="destructive">Delete</Button>
+        <Button variant="outline">Schedule</Button>
         <Button variant="outline">Edit</Button>
-        <Button >Schedule</Button>
       </CardFooter>
     </Card>
   )

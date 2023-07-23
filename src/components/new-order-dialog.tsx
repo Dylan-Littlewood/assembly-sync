@@ -65,9 +65,6 @@ export function NewOrderDialog() {
       setErrorInfo(errorInfo => [...errorInfo, {id:'saleOrder',message:'Sale order can not be blank'}]);
       successful = false;
     }
-    const todaysDate = Timestamp.now();
-
-    setNewOrder({ ...newOrder, dates: { scheduled: true, build: todaysDate } });
     return successful;
   }
   const handleInput = (id:string, value:string) => {
@@ -104,10 +101,10 @@ export function NewOrderDialog() {
   return (
     <Dialog open={open} onOpenChange={dialogOnOpen}>
       <DialogTrigger asChild>
-        <div className=' hover:text-accent-foreground hover:bg-accent relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50'>
+        <Button >
           <PlusCircle className="mr-2 h-4 w-4" />
           <span>New Order</span>
-        </div>
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <form onSubmit={handleSubmit}>

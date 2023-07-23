@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
       <Navigation />
-      <div className="flex justify-between w-full h-full">
+      <div className="flex justify-between w-full h-full overflow-hidden">
         <Sidebar />
         <div className="bg-secondary w-full flex flex-col items-center justify-center rounded-tl-3xl relative">
           <Outlet />

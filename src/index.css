@@ -91,3 +91,26 @@
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent));
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent-foreground));
+}
