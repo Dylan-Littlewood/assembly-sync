@@ -14,6 +14,7 @@ import { Calendar } from "../ui/calendar";
 import { useState } from "react";
 import { updateOrder } from "@/firebase/firestore";
 import { Timestamp } from "@firebase/firestore";
+import { CalendarClock, Pencil } from "lucide-react";
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
@@ -22,28 +23,17 @@ export function OrderCard({ order }: { order: Order }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>{order.customerName}</CardTitle>
-        <CardDescription>{order.product}</CardDescription>
-        <div>
-          <Badge variant={status}>{order.status}</Badge>
-        </div>
+        <CardTitle><div className="flex justify-between items-center"><h3>{order.workOrder} - ({order.saleOrder})</h3><Badge variant={status}>{order.status}</Badge></div></CardTitle>
+        <CardDescription>{order.customerName}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex justify-between text-center">
           <div className="space-y-1">
             <p className="text-sm font-medium leading-none">
-              Work Order
+              Product
             </p>
             <p className="text-sm text-muted-foreground">
-              {order.workOrder}
-            </p>
-          </div>
-          <div className="space-y-1">
-            <p className="text-sm font-medium leading-none">
-              Sale Order
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {order.saleOrder}
+              {order.product}
             </p>
           </div>
           <div className="space-y-1">
@@ -54,12 +44,11 @@ export function OrderCard({ order }: { order: Order }) {
               {order.quantity.total}
             </p>
           </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size='sm'><Pencil /></Button>
+            <CalendarPopover workOrder={order.workOrder} /></div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Edit</Button>
-        <CalendarPopover workOrder={order.workOrder} />
-      </CardFooter>
     </Card>
   )
 }
@@ -69,7 +58,7 @@ const CalendarPopover = ({workOrder}:{workOrder:string}) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-          <Button>Schedule</Button>
+          <Button size='sm'><CalendarClock /></Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-4" align="start">
         <Calendar

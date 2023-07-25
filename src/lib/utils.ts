@@ -23,12 +23,28 @@ export function isNumber(input: string) {
 }
 
 export function isToday(date: Timestamp | undefined) {
-  if (!date) return false;
-
 // Get today's date
   var todaysDate = new Date();
-  var convertedDate = date.toDate();
+  todaysDate.setHours(0, 0, 0, 0);
 
-// call setHours to take the time out of the comparison
-  return convertedDate.setHours(0, 0, 0, 0) === todaysDate.setHours(0, 0, 0, 0);
+  return datesMatch(date, todaysDate);
+
+}
+
+export function datesMatch(date1: Timestamp|undefined, date2:Timestamp|undefined): boolean;
+export function datesMatch(date1: Timestamp|undefined, date2:Date|undefined): boolean;
+export function datesMatch(date1: Date|undefined, date2:Timestamp|undefined): boolean;
+export function datesMatch(date1: Date|undefined, date2:Date|undefined): boolean;
+
+export function datesMatch(date1: any, date2: any) {
+  if (!date1 || !date2) return false;
+  let timestamp1 = date1;
+  let timestamp2 = date2;
+  if (!(date1 instanceof Timestamp)) {
+    timestamp1 = Timestamp.fromDate(date1)
+  }
+  if (!(date2 instanceof Timestamp)) {
+    timestamp2 = Timestamp.fromDate(date2)
+  }
+  return timestamp1.isEqual(timestamp2);
 }
