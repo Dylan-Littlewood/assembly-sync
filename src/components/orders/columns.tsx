@@ -1,11 +1,13 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Pencil } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
 import { Order, Quantity } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
 import { getEmployee, loadEmployees } from '@/firebase/firestore';
+import { Button } from '../ui/button';
+import { CalendarPopover } from '../calendarPopover';
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
@@ -87,5 +89,18 @@ export const columns: ColumnDef<Order>[] = [
         </div>
       );
     },
+  },
+  {
+    id: 'actions',
+    cell: (props) => {
+
+      const workOrder = props.row.original.workOrder;
+      return (
+        <div className='flex gap-4'>
+          <Button variant="outline" size='sm'><Pencil /></Button>
+          <CalendarPopover workOrder={workOrder} />
+        </div>
+      );
+    }
   },
 ];
