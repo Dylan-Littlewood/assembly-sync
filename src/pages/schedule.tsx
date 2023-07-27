@@ -1,9 +1,8 @@
 import { NewOrderDialog } from '@/components/new-order-dialog'
-import { columns } from '@/components/orders/columns';
+import { scheduleColumns } from '@/components/orders/columns';
 import { DataTable } from '@/components/orders/data-table';
 import OrderList from '@/components/orders/orderList';
 import { loadOrders } from '@/firebase/firestore';
-import { Timestamp } from '@firebase/firestore';
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { cn, datesMatch } from "@/lib/utils"
@@ -60,7 +59,7 @@ export default function Schedule() {
       <div className='flex flex-col w-full gap-8'>
         <ScheduleNav date={date} setDate={setDate} />
         <div className='flex w-full h-full items-center justify-center'>
-          <DataTable columns={columns} data={selectedOrders} />
+          <DataTable columns={scheduleColumns} data={selectedOrders} />
         </div>
       </div>
     </div>

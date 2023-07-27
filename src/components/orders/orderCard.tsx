@@ -47,7 +47,7 @@ export function OrderCard({ order }: { order: Order }) {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size='sm'><Pencil /></Button>
-            <CalendarPopover workOrder={order.workOrder} /></div>
+            <CalendarPopover order={order} /></div>
         </div>
       </CardContent>
     </Card>

@@ -84,7 +84,6 @@ export function NewOrderDialog() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateOrder()) {
-      console.log(newOrder);
       try {
         await setDoc(doc(db, "Orders", newOrder.workOrder), newOrder).then(()=> dialogOnOpen(false));
       } catch (error) {

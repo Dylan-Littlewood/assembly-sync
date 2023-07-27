@@ -12,10 +12,7 @@ import { CalendarPopover } from '../calendarPopover';
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
-export const columns: ColumnDef<Order>[] = [
+const defaultColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
@@ -52,6 +49,12 @@ export const columns: ColumnDef<Order>[] = [
       );
     },
   },
+];
+// This type is used to define the shape of our data.
+// You can use a Zod schema here if you want.
+
+export const buildColumns: ColumnDef<Order>[] = [
+  ...defaultColumns,
   {
     accessorKey: 'assigned',
     header: 'Assigned',
@@ -97,10 +100,27 @@ export const columns: ColumnDef<Order>[] = [
       const workOrder = props.row.original.workOrder;
       return (
         <div className='flex gap-4'>
-          <Button variant="outline" size='sm'><Pencil /></Button>
-          <CalendarPopover workOrder={workOrder} />
+          <Button size='sm'>Join</Button>
         </div>
       );
     }
   },
 ];
+
+export const scheduleColumns: ColumnDef<Order>[] = [
+  ...defaultColumns,
+  {
+    id: 'actions',
+    cell: (props) => {
+
+      const order = props.row.original;
+      return (
+        <div className='flex gap-4'>
+          <Button variant="outline" size='sm'><Pencil /></Button>
+          <CalendarPopover order={order} />
+        </div>
+      );
+    }
+  },
+];
+

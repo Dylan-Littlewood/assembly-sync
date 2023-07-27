@@ -5,10 +5,12 @@ import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { updateOrder } from "@/firebase/firestore";
 import { Timestamp } from "@firebase/firestore";
+import { Order } from "@/lib/types";
 
 
-export const CalendarPopover = ({workOrder}:{workOrder:string}) => {
-  const [date, setDate] = useState<Date>();
+export const CalendarPopover = ({ order }: { order: Order }) => {
+  const initialDate: Date = order.dates.build ? order.dates.build.toDate() : new Date();
+  const [date, setDate] = useState<Date | undefined>(initialDate);
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -23,11 +25,10 @@ export const CalendarPopover = ({workOrder}:{workOrder:string}) => {
           disabled={(date) =>
             date > new Date() || date < new Date("1900-01-01")
           }
-          initialFocus
         />
         <Button className="w-full" disabled={date === undefined} onClick={(e) => {
           if (date) {
-            updateOrder(workOrder, { dates: { scheduled: true, build: Timestamp.fromDate(date) } });
+            updateOrder(order.workOrder, { dates: { scheduled: true, build: Timestamp.fromDate(date) } });
             setOpen(false);
           }
         }}>Confirm</Button>
