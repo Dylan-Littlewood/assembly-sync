@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { AlertCircle, Pencil } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
 import { Order, Quantity } from '@/lib/types';
@@ -8,6 +8,7 @@ import { getInitials } from '@/lib/utils';
 import { getEmployee, loadEmployees } from '@/firebase/firestore';
 import { Button } from '../ui/button';
 import { CalendarPopover } from '../calendarPopover';
+import { EditOrderDialog } from '../edit-order-dialog';
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
@@ -116,7 +117,7 @@ export const scheduleColumns: ColumnDef<Order>[] = [
       const order = props.row.original;
       return (
         <div className='flex gap-4'>
-          <Button variant="outline" size='sm'><Pencil /></Button>
+          <EditOrderDialog workOrder={order} />
           <CalendarPopover order={order} />
         </div>
       );

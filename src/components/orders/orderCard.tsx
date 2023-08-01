@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -9,13 +8,8 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "../ui/badge"
 import { Order } from "@/lib/types"
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar } from "../ui/calendar";
-import { useState } from "react";
-import { updateOrder } from "@/firebase/firestore";
-import { Timestamp } from "@firebase/firestore";
-import { CalendarClock, Pencil } from "lucide-react";
 import { CalendarPopover } from "../calendarPopover";
+import { EditOrderDialog } from "../edit-order-dialog";
 
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
@@ -46,7 +40,7 @@ export function OrderCard({ order }: { order: Order }) {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size='sm'><Pencil /></Button>
+            <EditOrderDialog workOrder={order} />
             <CalendarPopover order={order} /></div>
         </div>
       </CardContent>

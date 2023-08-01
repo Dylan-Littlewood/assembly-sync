@@ -22,9 +22,7 @@ export const CalendarPopover = ({ order }: { order: Order }) => {
           mode="single"
           selected={date}
           onSelect={setDate}
-          disabled={(date) =>
-            date > new Date() || date < new Date("1900-01-01")
-          }
+          initialFocus
         />
         <Button className="w-full" disabled={date === undefined} onClick={(e) => {
           if (date) {

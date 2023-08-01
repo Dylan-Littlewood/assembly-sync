@@ -51,5 +51,5 @@ export function loadOrders() {
 }
 
 export function updateOrder(id: string, data: OrderUpdate) {
-  updateDoc(doc(db, 'Orders', id), data);
+  return updateDoc(doc(db, 'Orders', id), data);
 }
