@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Timestamp } from "@firebase/firestore"
 import { Order, BlankOrder, ErrorType } from "@/lib/types"
-import { isNumber } from "@/lib/utils"
+import { generateOrder, isNumber } from "@/lib/utils"
 import { PlusCircle } from "lucide-react"
 import { useState } from "react"
 import { setDoc, doc } from "@firebase/firestore";
@@ -132,6 +132,9 @@ export function NewOrderDialog() {
           </div>
           <DialogFooter>
             <Button type="submit">Submit Order</Button>
+            {
+              (import.meta.env.VITE_DEVELOPMENT_MODE === 'true') && <Button onClick={() => { setNewOrder(generateOrder()) }}>Generate</Button>
+            }
           </DialogFooter>
         </form>
       </DialogContent>
