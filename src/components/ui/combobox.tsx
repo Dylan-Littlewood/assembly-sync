@@ -17,27 +17,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Product } from "@/lib/types"
 
-const products = [
+const products: Product[] = [
   {
-    value: "FLMI",
-    label: "Flex Mini",
+    sku: "FLMI",
+    name: "Flex Mini",
   },
   {
-    value: "ASPMI-H610M-E",
-    label: "Aspect Mini",
+    sku: "ASPMI-H610M-E",
+    name: "Aspect Mini",
   },
   {
-    value: "FLAIO",
-    label: "FLAIO",
+    sku: "FLAIO",
+    name: "FLAIO",
   },
   {
-    value: "ASPAIO",
-    label: "ASPAIO",
+    sku: "ASPAIO",
+    name: "ASPAIO",
   },
 ]
 
-export function ComboboxDemo({value,onChange, className}:{value:string, onChange: (id:string, value:string) => void, className: string}) {
+export function ProductCombobox({product,onChange, className}:{product:string, onChange: (id:string, value:string) => void, className: string}) {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -50,8 +51,8 @@ export function ComboboxDemo({value,onChange, className}:{value:string, onChange
           aria-expanded={open}
           className={cn("col-span-3 justify-between",className)}
         >
-          {value
-            ? products.find((product) => product.value.toLowerCase() === value)?.label
+          {product
+            ? products.find((productRef) => productRef.sku.toLowerCase() === product.toLowerCase())?.name
             : "Select Product..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -61,22 +62,22 @@ export function ComboboxDemo({value,onChange, className}:{value:string, onChange
           <CommandInput placeholder="Search Product..." />
           <CommandEmpty>No product found.</CommandEmpty>
           <CommandGroup>
-            {products.map((product) => (
+            {products.map((productRef) => (
               <CommandItem
-                key={product.value}
+                key={productRef.sku}
                 onSelect={(currentValue) => {
-                  onChange("product", currentValue === value ? "" : currentValue)
+                  onChange("product", currentValue === productRef.sku ? "" : currentValue)
                   setOpen(false)
                 }}
-                value={product.value}
+                value={productRef.sku}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === product.value ? "opacity-100" : "opacity-0"
+                    product === productRef.sku ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {product.label}
+                {productRef.name}
               </CommandItem>
             ))}
           </CommandGroup>

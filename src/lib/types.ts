@@ -23,29 +23,28 @@ export type Order = {
   status: 'New' | 'Picking' | 'Processing' | 'Complete' | 'Issue';
   saleOrder: number | '';
   customerName: string;
-  product: string;
+  product: Product;
   quantity: Quantity;
   dates: Dates;
   assigned: string[];
 };
+export type OrderUpdate = Partial<Order>
 
-export type OrderUpdate = {
-  workOrder?: string;
-  status?: 'New' | 'Picking' | 'Processing' | 'Complete' | 'Issue';
-  saleOrder?: number | '';
-  customerName?: string;
-  product?: string;
-  quantity?: Quantity;
-  dates?: Dates;
-  assigned?: string[];
-};
+export type Product = {
+  name: string;
+  sku: string;
+  buildTimeMinutes?: number;
+}
 
 export const BlankOrder: Order = {
   workOrder: "",
   status: "New",
   saleOrder: "",
   customerName: "",
-  product: "",
+  product: {
+    name: "",
+    sku: "",
+  },
   quantity: {
     total: "",
     completed: 0,

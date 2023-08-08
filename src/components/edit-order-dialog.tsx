@@ -8,13 +8,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { ErrorType, OrderUpdate } from "@/lib/types"
+import { ErrorType, OrderUpdate, Product } from "@/lib/types"
 import { isNumber } from "@/lib/utils"
 import { Pencil, PlusCircle } from "lucide-react"
 import { useState } from "react"
 import InputField from "./ui/inputField"
 import { updateOrder } from "@/firebase/firestore"
 
+
+const products: Product[] = [
+  {
+    sku: "FLMI",
+    name: "Flex Mini",
+  },
+  {
+    sku: "ASPMI-H610M-E",
+    name: "Aspect Mini",
+  },
+  {
+    sku: "FLAIO",
+    name: "FLAIO",
+  },
+  {
+    sku: "ASPAIO",
+    name: "ASPAIO",
+  },
+]
 
 export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
   const [order, setOrder] = useState<OrderUpdate>(workOrder);
@@ -30,7 +49,7 @@ export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
       setErrorInfo(errorInfo => [...errorInfo, {id:'customerName',message:'Customer can not be blank'}]);
       successful = false;
     }
-    if (order.product === '') {
+    if (order.product?.name === '') {
       setErrorInfo(errorInfo => [...errorInfo, {id:'product',message:'Product can not be blank'}]);
       successful = false;
     }
@@ -54,6 +73,8 @@ export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
     } else if(id === 'saleOrder') {
       isNumber(value) && setOrder({ ...order, [id]: Number(value) });
       value === '' && setOrder({ ...order, [id]: value });
+    } else if(id === 'product') {
+      setOrder({ ...order, [id]: products.find(productRef => productRef.sku.toLowerCase() === value.toLowerCase()) });
     } else {
       setOrder({ ...order, [id]: value });
     }
@@ -93,7 +114,7 @@ export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
             <InputField id="quantity" onChange={handleInput} value={order.quantity?.total ? order.quantity?.total : ''} errorInfo={errorInfo}>
               Quantity
             </InputField>
-            <InputField id="product" onChange={handleInput} value={order.product ? order.product : ''} errorInfo={errorInfo}>
+            <InputField id="product" onChange={handleInput} value={order.product?.sku ? order.product.sku : ''} errorInfo={errorInfo}>
               Product
             </InputField>
           </div>

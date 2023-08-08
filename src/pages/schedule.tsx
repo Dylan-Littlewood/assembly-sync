@@ -47,7 +47,9 @@ const ScheduleNav = ({date,setDate}:{date: Date | undefined, setDate: React.Disp
 }
 
 export default function Schedule() {
-  const [date, setDate] = useState<Date>()
+  var todaysDate = new Date();
+  todaysDate.setHours(0, 0, 0, 0);
+  const [date, setDate] = useState<Date | undefined>(todaysDate)
   const allOrders = loadOrders();
   const unscheduledOrders = allOrders.filter(order => order.dates.scheduled === false);
   const selectedOrders = allOrders.filter(order => datesMatch(order.dates.build, date));

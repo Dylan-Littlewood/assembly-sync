@@ -24,7 +24,11 @@ export function generateOrder(): Order {
     status: 'New',
     saleOrder: faker.number.int({ min: 10000, max: 99999 }),
     workOrder: `WO${faker.number.int({ min: 1000, max: 9999 })}`,
-    product: '',
+    product: {
+      name: "Flex Slim",
+      sku: "FLS",
+      buildTimeMinutes: 15,
+    },
     quantity: {
       total: faker.number.int({min:1, max: 1000}),
       completed: 0,

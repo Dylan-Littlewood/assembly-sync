@@ -9,7 +9,9 @@ import { Order } from "@/lib/types";
 
 
 export const CalendarPopover = ({ order }: { order: Order }) => {
-  const initialDate: Date = order.dates.build ? order.dates.build.toDate() : new Date();
+  var todaysDate = new Date();
+  todaysDate.setHours(0, 0, 0, 0);
+  const initialDate: Date = order.dates.build ? order.dates.build.toDate() : todaysDate;
   const [date, setDate] = useState<Date | undefined>(initialDate);
   const [open, setOpen] = useState(false);
   return (

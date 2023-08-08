@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { AlertCircle } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { Badge } from '../ui/badge';
-import { Order, Quantity } from '@/lib/types';
+import { Order, Product, Quantity } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
 import { getEmployee, loadEmployees, updateOrder } from '@/firebase/firestore';
 import { Button } from '../ui/button';
@@ -15,13 +15,6 @@ import { auth } from '@/firebase/config';
 type variant = 'default' | 'secondary' | 'outline' | 'complete' | 'processing' | 'picking' | 'issue' | null | undefined;
 
 type Cell = ({ getValue }: { getValue: Getter<unknown>; }) => JSX.Element;
-
-type Schema = {
-  header: string;
-  accessorKey: string;
-  cell?: Cell
-}[]
-
 
 const statusBadge: Cell = ({ getValue }) => {
   const status = getValue<string>().toLowerCase() as variant;
@@ -84,6 +77,14 @@ const defaultColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'product',
     header: 'Product',
+    cell: ({ getValue }) => {
+      const product = getValue<Product>();
+      return (
+        <p>
+          {`${product.name} (${product.sku})`}
+        </p>
+      );
+    },
   },
   {
     accessorKey: 'quantity',

@@ -53,7 +53,7 @@ export function NewOrderDialog() {
       setErrorInfo(errorInfo => [...errorInfo, {id:'customerName',message:'Customer can not be blank'}]);
       successful = false;
     }
-    if (newOrder.product === '') {
+    if (newOrder.product.name === '') {
       setErrorInfo(errorInfo => [...errorInfo, {id:'product',message:'Product can not be blank'}]);
       successful = false;
     }
@@ -126,7 +126,7 @@ export function NewOrderDialog() {
             <InputField id="quantity" onChange={handleInput} value={newOrder.quantity.total} errorInfo={errorInfo}>
               Quantity
             </InputField>
-            <InputField id="product" onChange={handleInput} value={newOrder.product} errorInfo={errorInfo}>
+            <InputField id="product" onChange={handleInput} value={newOrder.product.name} errorInfo={errorInfo}>
               Product
             </InputField>
           </div>
