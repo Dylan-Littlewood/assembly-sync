@@ -1,8 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Timestamp } from "@firebase/firestore"
-import { faker } from '@faker-js/faker';
-import { Order } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,27 +16,6 @@ export function getInitials(name: string) {
   return initials;
 }
 
-export function generateOrder(): Order {
-  return {
-    customerName: faker.company.name(),
-    status: 'New',
-    saleOrder: faker.number.int({ min: 10000, max: 99999 }),
-    workOrder: `WO${faker.number.int({ min: 1000, max: 9999 })}`,
-    product: {
-      name: "Flex Slim",
-      sku: "FLS",
-      buildTimeMinutes: 15,
-    },
-    quantity: {
-      total: faker.number.int({min:1, max: 1000}),
-      completed: 0,
-    },
-    dates: {
-      scheduled: false
-    },
-    assigned: []
-}
-}
 
 export function isNumber(input: string) {
   if (input === '') return false;

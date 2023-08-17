@@ -13,37 +13,18 @@ import { isNumber } from "@/lib/utils"
 import { Pencil, PlusCircle } from "lucide-react"
 import { useState } from "react"
 import InputField from "./ui/inputField"
-import { updateOrder } from "@/firebase/firestore"
+import { loadProducts, updateOrder } from "@/firebase/firestore"
 
-
-const products: Product[] = [
-  {
-    sku: "FLMI",
-    name: "Flex Mini",
-  },
-  {
-    sku: "ASPMI-H610M-E",
-    name: "Aspect Mini",
-  },
-  {
-    sku: "FLAIO",
-    name: "FLAIO",
-  },
-  {
-    sku: "ASPAIO",
-    name: "ASPAIO",
-  },
-]
 
 export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
   const [order, setOrder] = useState<OrderUpdate>(workOrder);
   const [open, setOpen] = useState(false);
   const [errorInfo, setErrorInfo] = useState<ErrorType[]>([{}]);
+  const products = loadProducts();
 
 
   const validateOrder = () => {
     let successful = true;
-    let error = {message:'test'};
     setErrorInfo([{}]);
     if (order.customerName === '') {
       setErrorInfo(errorInfo => [...errorInfo, {id:'customerName',message:'Customer can not be blank'}]);
@@ -63,8 +44,7 @@ export function EditOrderDialog({workOrder}:{workOrder: OrderUpdate}) {
     }
     return successful;
   }
-  const handleInput = (id:string, value:string) => {
-
+  const handleInput = (id: string, value: string) => {
     setErrorInfo(errorInfo.filter(error => error.id !== id));
 
     if (id === 'quantity') {

@@ -8,20 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Timestamp } from "@firebase/firestore"
-import { Order, BlankOrder, ErrorType } from "@/lib/types"
-import { generateOrder, isNumber } from "@/lib/utils"
+import { Order, BlankOrder, ErrorType, Product } from "@/lib/types"
+import { isNumber } from "@/lib/utils"
 import { PlusCircle } from "lucide-react"
 import { useState } from "react"
 import { setDoc, doc } from "@firebase/firestore";
 import { db } from "@/firebase/config"
 import InputField from "./ui/inputField"
+import { loadProducts } from "@/firebase/firestore"
 
 
 export function NewOrderDialog() {
   const [newOrder, setNewOrder] = useState<Order>(BlankOrder);
   const [open, setOpen] = useState(false);
   const [errorInfo, setErrorInfo] = useState<ErrorType[]>([{}]);
+  const products = loadProducts();
 
 
   const isWOValid = (error:{message:string}) => {
@@ -67,8 +68,7 @@ export function NewOrderDialog() {
     }
     return successful;
   }
-  const handleInput = (id:string, value:string) => {
-
+  const handleInput = (id: string, value: string) => {
     setErrorInfo(errorInfo.filter(error => error.id !== id));
 
     if (id === 'quantity') {
@@ -77,6 +77,8 @@ export function NewOrderDialog() {
     } else if(id === 'saleOrder') {
       isNumber(value) && setNewOrder({ ...newOrder, [id]: Number(value) });
       value === '' && setNewOrder({ ...newOrder, [id]: value });
+    } else if(id === 'product') {
+      setNewOrder({ ...newOrder, [id]: products.find(productRef => productRef.sku.toLowerCase() === value.toLowerCase()) as Product });
     } else {
       setNewOrder({ ...newOrder, [id]: value });
     }
@@ -132,9 +134,6 @@ export function NewOrderDialog() {
           </div>
           <DialogFooter>
             <Button type="submit">Submit Order</Button>
-            {
-              (import.meta.env.VITE_DEVELOPMENT_MODE === 'true') && <Button onClick={() => { setNewOrder(generateOrder()) }}>Generate</Button>
-            }
           </DialogFooter>
         </form>
       </DialogContent>

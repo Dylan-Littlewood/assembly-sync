@@ -28,7 +28,7 @@ export function OrderCard({ order }: { order: Order }) {
               Product
             </p>
             <p className="text-sm text-muted-foreground">
-              {`${order.product.name} (${order.product.sku})`}
+              {`${order.product.name}`}<br/>{`(${order.product.sku})`}
             </p>
           </div>
           <div className="space-y-1">

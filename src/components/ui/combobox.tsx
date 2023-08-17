@@ -17,29 +17,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Product } from "@/lib/types"
+import { loadProducts } from "@/firebase/firestore"
 
-const products: Product[] = [
-  {
-    sku: "FLMI",
-    name: "Flex Mini",
-  },
-  {
-    sku: "ASPMI-H610M-E",
-    name: "Aspect Mini",
-  },
-  {
-    sku: "FLAIO",
-    name: "FLAIO",
-  },
-  {
-    sku: "ASPAIO",
-    name: "ASPAIO",
-  },
-]
 
 export function ProductCombobox({product,onChange, className}:{product:string, onChange: (id:string, value:string) => void, className: string}) {
   const [open, setOpen] = React.useState(false)
+  const products = loadProducts();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -1,9 +1,9 @@
-import { collection, onSnapshot, updateDoc, doc } from "@firebase/firestore";
+import { setDoc, collection, onSnapshot, updateDoc, doc, DocumentData, DocumentReference } from "@firebase/firestore";
 
 
 import { db } from "./config";
 import { useEffect, useState } from "react";
-import { Employee, Order, OrderUpdate } from "@/lib/types";
+import { Employee, Order, OrderUpdate, Product } from "@/lib/types";
 
 export function loadEmployees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -53,3 +53,27 @@ export function loadOrders() {
 export function updateOrder(id: string, data: OrderUpdate) {
   return updateDoc(doc(db, 'Orders', id), data);
 }
+
+export function loadProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
+      const getProducts = async () => {
+        const productsRef = collection(db, "Products");
+        const unsubscribe = await onSnapshot(productsRef, (snapshot) => {
+          setProducts(snapshot.docs.map((product)=>({...product.data()} as Product)))
+        })
+        return unsubscribe;
+  }
+    useEffect(() => {
+        getProducts();
+    }, [])
+  return products;
+}
+
+export async function addProduct(product: Product) {
+  try {
+    await setDoc(doc(db, "Products", product.sku), product);
+  } catch (error) {
+    console.log(error);
+  }
+}
+

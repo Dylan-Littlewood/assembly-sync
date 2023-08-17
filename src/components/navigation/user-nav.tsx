@@ -17,6 +17,7 @@ import { getInitials } from "@/lib/utils";
 import { auth } from "@/firebase/config";
 import { getEmployee, loadEmployees } from "@/firebase/firestore";
 import { AuthContext } from "@/context/AuthContext";
+import { addOrder, addProducts } from "@/lib/dev";
 
 interface EmployeeID {
   employeeID: string;
@@ -56,9 +57,18 @@ export const UserNav: FC<EmployeeID> = ({ employeeID }): JSX.Element => {
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
+          <DropdownMenuItem onSelect={() => {
+            addOrder();
+          }}>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            <span>Add Order</span>
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => {
+            addProducts();
+          }}>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            <span>Add Products</span>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
